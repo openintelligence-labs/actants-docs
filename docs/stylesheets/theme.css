@@ -345,3 +345,46 @@
 .md-typeset details.question > summary {
   font-weight: 600;
 }
+
+/* Theme toggle in the footer ---------------------------------------------- */
+/* Moved out of the header by overrides/partials/{header,footer}.html so the
+   top of the page carries navigation only. Sized and dimmed to sit alongside
+   the copyright line rather than compete with it. */
+
+.md-footer-palette {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  padding: 0 0.4rem;
+}
+
+.md-footer-palette .md-header__button.md-icon {
+  margin: 0;
+  padding: 0.3rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  opacity: 0.55;
+  transition: opacity 120ms ease;
+}
+
+.md-footer-palette .md-header__button.md-icon:hover {
+  opacity: 1;
+}
+
+.md-footer-palette .md-header__button.md-icon svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+/* The footer meta row is a flex line; keep the copyright, the toggle, and any
+   social links on one baseline. */
+.md-footer-meta__inner {
+  align-items: center;
+}
+
+/* Social links sit after the toggle, so drop the auto margin that would
+   otherwise push them apart. */
+.md-footer-palette + .md-social {
+  margin-left: 0.4rem;
+  padding: 0;
+}
