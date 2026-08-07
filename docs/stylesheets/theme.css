@@ -94,7 +94,6 @@
   font-weight: 680;
   letter-spacing: -0.028em;
   color: var(--md-default-fg-color);
-  margin-bottom: 0.5rem;
 }
 
 .md-typeset h2 {
@@ -110,14 +109,6 @@
   letter-spacing: -0.012em;
 }
 
-/* The lede paragraph directly under the page title. Larger than body text, but
-   it must not compete with the h1 above it. */
-.md-typeset h1 + p {
-  font-size: 0.92rem;
-  line-height: 1.62;
-  color: var(--muted);
-  max-width: 42rem;
-}
 
 /* Code -------------------------------------------------------------------- */
 
@@ -296,23 +287,35 @@
   border-color: var(--accent);
 }
 
-/* The landing h1 is a sentence, not a product name. */
+/* The landing h1 is a sentence, not a product name, so it needs a measure and
+   a tighter leading than a section heading. */
 .md-typeset h1 {
   max-width: 30ch;
   line-height: 1.14;
+  margin-bottom: 0.6rem;
 }
 
-/* With both sidebars hidden the content well spans the full viewport, which is
-   far past a comfortable reading measure. Cap it and centre it. */
+/* The lede is the paragraph under the h1 — and on pages that open with a
+   narrative hook, the one after it too. */
+.md-typeset h1 + p,
+.md-typeset h1 + p + p {
+  font-size: 0.92rem;
+  line-height: 1.62;
+  color: var(--muted);
+  max-width: 42rem;
+}
+
+/* Material gives every paragraph a top margin, which reads as a gap between
+   the title and its lede. Collapse it for the lede specifically — the selector
+   needs the extra .md-typeset weight to beat Material's own rule. */
+.md-typeset .md-content__inner > h1 + p,
+.md-typeset h1 + p {
+  margin-top: 0.15rem;
+}
+
 .md-typeset .hero-code,
 .md-typeset .hero-actions {
   max-width: 46rem;
-}
-
-/* Tighten the rhythm above the fold so the first benefit section is reachable
-   without a long scroll. */
-.md-typeset h1 + p {
-  margin-bottom: 1.3rem;
 }
 
 .md-typeset .hero-actions + hr {
@@ -326,21 +329,19 @@
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
 }
 
-/* Collapsed detail blocks at the foot carry reference material that would
-   otherwise push the pitch below the fold. */
-.md-typeset details.info > summary {
-  font-weight: 600;
-}
-
 /* Home page only. `hide: navigation, toc` empties both sidebars but Material
    still lays out their columns, leaving the content pinned beside dead space.
    :has() targets only a page where both are collapsed, so reference pages keep
-   their normal three-column layout.
-
-   The inner article carries Material's own max-width, so constrain that rather
-   than .md-content, and centre it in the reclaimed width. */
+   their normal three-column layout. */
 .md-main__inner:has(.md-sidebar--primary[hidden]):has(.md-sidebar--secondary[hidden])
   .md-content__inner {
   max-width: 50rem;
   margin-inline: auto;
+}
+
+/* Collapsed detail blocks at the foot carry reference material that would
+   otherwise push the pitch below the fold. */
+.md-typeset details.info > summary,
+.md-typeset details.question > summary {
+  font-weight: 600;
 }
