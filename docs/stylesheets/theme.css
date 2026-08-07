@@ -1,0 +1,250 @@
+/* actants documentation theme.
+
+   Self-contained: this file is the whole visual layer for this site. The accent
+   below is the one value worth changing; everything else derives from it. */
+
+:root {
+  --accent-h: 262;
+  --accent-s: 62%;
+
+  --accent: hsl(var(--accent-h) var(--accent-s) 52%);
+  --accent-strong: hsl(var(--accent-h) var(--accent-s) 44%);
+  --accent-soft: hsl(var(--accent-h) var(--accent-s) 96%);
+  --accent-border: hsl(var(--accent-h) calc(var(--accent-s) * 0.7) 86%);
+
+  --md-primary-fg-color: var(--accent-strong);
+  --md-primary-fg-color--light: var(--accent);
+  --md-primary-fg-color--dark: hsl(var(--accent-h) var(--accent-s) 34%);
+  --md-accent-fg-color: var(--accent);
+
+  --md-default-fg-color: hsl(220 18% 14%);
+  --md-typeset-a-color: var(--accent-strong);
+
+  --rule: hsl(220 14% 90%);
+  --muted: hsl(220 9% 46%);
+  --surface: hsl(220 22% 98%);
+}
+
+[data-md-color-scheme="slate"] {
+  --accent: hsl(var(--accent-h) calc(var(--accent-s) * 0.95) 70%);
+  --accent-strong: hsl(var(--accent-h) calc(var(--accent-s) * 0.95) 76%);
+  --accent-soft: hsl(var(--accent-h) 28% 17%);
+  --accent-border: hsl(var(--accent-h) 26% 30%);
+
+  --md-primary-fg-color: hsl(220 18% 12%);
+  --md-accent-fg-color: var(--accent);
+  --md-typeset-a-color: var(--accent-strong);
+
+  --md-default-bg-color: hsl(220 20% 9%);
+  --md-default-fg-color: hsl(220 16% 88%);
+
+  --rule: hsl(220 14% 22%);
+  --muted: hsl(220 10% 62%);
+  --surface: hsl(220 20% 12%);
+}
+
+/* Header ------------------------------------------------------------------ */
+
+.md-header {
+  border-bottom: 1px solid var(--rule);
+  box-shadow: none;
+}
+
+[data-md-color-scheme="default"] .md-header {
+  background-color: hsl(220 20% 11%);
+}
+
+.md-header__title {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Keep the tab bar neutral; let the active tab carry the accent instead of
+   painting the whole strip. */
+.md-tabs {
+  background-color: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  border-bottom: 1px solid var(--rule);
+}
+
+.md-tabs__link {
+  opacity: 1;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 520;
+}
+
+.md-tabs__link:hover {
+  color: var(--md-default-fg-color);
+}
+
+.md-tabs__link--active,
+.md-tabs__item--active .md-tabs__link {
+  color: var(--accent-strong);
+  font-weight: 620;
+}
+
+/* Typography -------------------------------------------------------------- */
+
+.md-typeset {
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+}
+
+.md-typeset h1 {
+  font-weight: 680;
+  letter-spacing: -0.028em;
+  color: var(--md-default-fg-color);
+  margin-bottom: 0.5rem;
+}
+
+.md-typeset h2 {
+  font-weight: 640;
+  letter-spacing: -0.019em;
+  margin-top: 2.4em;
+  padding-top: 0.35em;
+  border-top: 1px solid var(--rule);
+}
+
+.md-typeset h3 {
+  font-weight: 620;
+  letter-spacing: -0.012em;
+}
+
+/* The lede paragraph directly under the page title. Larger than body text, but
+   it must not compete with the h1 above it. */
+.md-typeset h1 + p {
+  font-size: 0.92rem;
+  line-height: 1.62;
+  color: var(--muted);
+  max-width: 42rem;
+}
+
+/* Code -------------------------------------------------------------------- */
+
+.md-typeset pre > code {
+  border-radius: 6px;
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+.md-typeset code {
+  font-size: 0.84em;
+  border-radius: 4px;
+}
+
+.md-typeset .highlight > pre {
+  border: 1px solid var(--rule);
+  border-radius: 7px;
+}
+
+/* Tables ------------------------------------------------------------------ */
+
+.md-typeset table:not([class]) {
+  border: 1px solid var(--rule);
+  border-radius: 7px;
+  font-size: 0.76rem;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.md-typeset table:not([class]) th {
+  background-color: var(--surface);
+  font-weight: 620;
+  letter-spacing: -0.005em;
+}
+
+.md-typeset table:not([class]) td,
+.md-typeset table:not([class]) th {
+  border-bottom: 1px solid var(--rule);
+}
+
+/* Wide tables scroll inside their own container, never the page. */
+.md-typeset__table {
+  overflow-x: auto;
+}
+
+/* Admonitions ------------------------------------------------------------- */
+
+.md-typeset .admonition,
+.md-typeset details {
+  border-width: 1px;
+  border-left-width: 3px;
+  border-radius: 6px;
+  box-shadow: none;
+  font-size: 0.76rem;
+}
+
+/* Card grid --------------------------------------------------------------- */
+/* Usage: <div class="oi-grid" markdown> wrapping <div class="oi-card" markdown> */
+
+.oi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 0.9rem;
+  margin: 1.4rem 0;
+}
+
+.oi-card {
+  display: block;
+  padding: 1.05rem 1.15rem;
+  border: 1px solid var(--rule);
+  border-radius: 9px;
+  background: var(--surface);
+  transition: border-color 120ms ease, transform 120ms ease;
+}
+
+.oi-card:hover {
+  border-color: var(--accent-border);
+  transform: translateY(-1px);
+}
+
+.md-typeset .oi-card > :first-child {
+  margin-top: 0;
+  font-weight: 640;
+  font-size: 0.86rem;
+  letter-spacing: -0.01em;
+}
+
+.md-typeset .oi-card > :last-child {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.55;
+}
+
+.md-typeset .oi-card a {
+  text-decoration: none;
+}
+
+/* Footer ------------------------------------------------------------------ */
+
+.md-footer-meta {
+  background-color: hsl(220 20% 9%);
+}
+
+.md-copyright {
+  font-size: 0.66rem;
+}
+
+/* Version badges in prose -------------------------------------------------- */
+
+.oi-badge {
+  display: inline-block;
+  padding: 0.08em 0.5em;
+  font-size: 0.68em;
+  font-weight: 620;
+  letter-spacing: 0.01em;
+  border-radius: 999px;
+  border: 1px solid var(--accent-border);
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  vertical-align: middle;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oi-card,
+  .oi-card:hover {
+    transition: none;
+    transform: none;
+  }
+}

@@ -1,0 +1,9 @@
+site/
+.cache/
+__pycache__/
+.venv/
+venv/
+
+# Product source checked out by CI for API/CLI reference generation.
+# Never commit it — it belongs to the product repo.
+/src-checkout

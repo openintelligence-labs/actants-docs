@@ -1,0 +1,195 @@
+# actants documentation.
+#
+# This site is self-contained: theme, styles, and navigation all live in this
+# repository. It shares no configuration with any other project.
+
+site_name: actants
+site_description: >-
+  Build LLM agents in Python. Ollama by default, cloud providers opt-in, MCP and A2A native.
+site_url: https://openintelligence-labs.github.io/actants-docs/
+repo_url: https://github.com/openintelligence-labs/actants
+repo_name: openintelligence-labs/actants
+edit_uri: https://github.com/openintelligence-labs/actants-docs/edit/main/docs/
+
+copyright: >
+  Copyright &copy; actants contributors &mdash; MIT License.
+
+docs_dir: docs
+
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - toc.follow
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - content.action.edit
+    - content.tooltips
+    - search.suggest
+    - search.highlight
+    - search.share
+    - announce.dismiss
+  icon:
+    repo: fontawesome/brands/github
+    edit: material/pencil
+  font:
+    text: Inter
+    code: JetBrains Mono
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+
+extra_css:
+  - stylesheets/theme.css
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - md_in_html
+  - tables
+  - footnotes
+  - toc:
+      permalink: true
+      permalink_title: Link to this section
+      toc_depth: 3
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      base_path: ["docs", "."]
+      check_paths: true
+  - pymdownx.details
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.caret
+  - pymdownx.smartsymbols
+  - pymdownx.tabbed:
+      alternate_style: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify {kwds: {case: lower}}
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+extra:
+  generator: false
+
+validation:
+  omitted_files: warn
+  absolute_links: warn
+  unrecognized_links: warn
+  anchors: warn
+
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          # CI checks the product repo out to ./src-checkout so the API
+          # reference is generated from real source rather than a copy that
+          # drifts. See .github/workflows/deploy.yml.
+          paths: [src-checkout/src]
+          options:
+            docstring_style: google
+            show_source: false
+            show_root_heading: true
+            show_root_full_path: false
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            show_signature_annotations: true
+            separate_signature: true
+            line_length: 90
+            merge_init_into_class: true
+            heading_level: 2
+            members_order: source
+            filters: ["!^_"]
+
+nav:
+  - Home: index.md
+  - Getting started:
+      - Quickstart: quickstart.md
+      - Installation: installation.md
+      - Configuration: configuration.md
+  - Concepts:
+      - Agent: concepts/agent.md
+      - LLM & providers: concepts/llm.md
+      - Tools: concepts/tools.md
+      - Streaming: concepts/streaming.md
+      - ReAct loop: concepts/react.md
+      - Embeddings: concepts/embeddings.md
+      - Storage: concepts/storage.md
+      - Observability: concepts/observability.md
+  - MCP:
+      - Client (consume): mcp/client.md
+      - Server (expose): mcp/server.md
+  - A2A:
+      - Server (expose): a2a/server.md
+      - Client (RemoteAgent): a2a/client.md
+  - Cookbook:
+      - Local research agent: cookbook/research-agent.md
+      - Connect to MCP server: cookbook/mcp-tools.md
+      - Two agents over A2A: cookbook/a2a-pair.md
+      - Stateful CLI app: cookbook/cli-app.md
+      - Semantic search: cookbook/embeddings.md
+  - Migration:
+      - From LangChain: migration/langchain.md
+      - From CrewAI: migration/crewai.md
+      - From Pydantic AI: migration/pydantic-ai.md
+  - API reference:
+      - Overview: api/index.md
+      - Agent: api/agent.md
+      - LLM: api/llm.md
+      - Tools: api/tools.md
+      - Embeddings: api/embeddings.md
+      - Storage: api/storage.md
+      - Cache: api/cache.md
+      - Cost & policies: api/cost-policies.md
+      - Tracing: api/tracing.md
+      - MCP: api/mcp.md
+      - A2A: api/a2a.md
+      - CLI helpers: api/cli.md
+      - Config: api/config.md
+      - Testing: api/testing.md
+  - Reference:
+      - Differentiation: reference/differentiation.md
+      - OTel GenAI: reference/otel.md
+      - FAQ: reference/faq.md
+      - Changelog: reference/changelog.md
