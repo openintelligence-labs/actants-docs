@@ -105,7 +105,9 @@ Same agent, same tools, same memory. Only the model changes.
     Requires `pip install 'actants[openai]'`.
 
 Gemini, Groq, and Mistral work the same way. Every provider is an opt-in extra,
-so an integration you do not install costs nothing at import time.
+so an integration you do not install costs nothing at import time. LangChain and
+CrewAI wrap the same providers behind larger abstractions; actants keeps the
+agent loop small enough to read and the local model as the default path.
 
 You can also switch without touching code at all — set `ACTANTS_PROVIDER` and
 `ACTANTS_MODEL` in the environment, and `Agent()` picks them up.
@@ -140,6 +142,41 @@ result = await agent.run("What is 17 + 25?")   # "17 + 25 = 42."
 
 [Read the tools guide →](concepts/tools.md)
 
+## What ships in the core install
+
+The `Agent`, the `LLM` gateway, a tool registry, an in-memory cache, a cost
+tracker, retry and fallback policies, an embeddings client, SQLite and JSONL
+storage helpers, and OpenTelemetry tracing.
+
+Providers and interop layers are extras. Symbols resolve lazily on first
+attribute access, so an unused integration costs nothing at import time.
+
+## Known limits
+
+Worth knowing before you pin an install command:
+
+- The **`all` extra does not include `a2a`** — nor `gemini`, `groq`, or
+  `mistral`. `pip install 'actants[all]'` gives you OpenAI, Anthropic, cache,
+  cli, and mcp only. Add the others explicitly, as in
+  `pip install 'actants[all,a2a]'`. See
+  [Installation](installation.md) for the full extras table.
+- MCP and A2A each require their own extra; neither is present in a bare
+  `pip install actants`.
+
+## Specifications
+
+| Property | Notes |
+|---|---|
+| Default LLM provider | Ollama (no API key required) |
+| Cloud providers | OpenAI, Anthropic, Gemini, Groq, Mistral (opt-in extras) |
+| Concurrency | async / await |
+| MCP | client + server (`actants.mcp`, requires `[mcp]` extra) |
+| A2A | client + server (`actants.a2a`, requires `[a2a]` extra) |
+| Tracing | OpenTelemetry GenAI semantic conventions |
+| Telemetry from the framework itself | none |
+| License | MIT |
+| Python | 3.12+ |
+
 ## Where to go next
 
 <div class="oi-grid" markdown>
@@ -170,31 +207,6 @@ Every public symbol, generated from the source.
 </div>
 
 </div>
-
-## The details
-
-??? info "What ships in the core install"
-
-    The `Agent`, the `LLM` gateway, a tool registry, an in-memory cache, a cost
-    tracker, retry and fallback policies, an embeddings client, SQLite and JSONL
-    storage helpers, and OpenTelemetry tracing.
-
-    Providers and interop layers are extras. Symbols resolve lazily on first
-    attribute access, so an unused integration costs nothing at import time.
-
-??? info "Specifications"
-
-    | Property | Notes |
-    |---|---|
-    | Default LLM provider | Ollama (no API key required) |
-    | Cloud providers | OpenAI, Anthropic, Gemini, Groq, Mistral (opt-in extras) |
-    | Concurrency | async / await |
-    | MCP | client + server (`actants.mcp`, requires `[mcp]` extra) |
-    | A2A | client + server (`actants.a2a`, requires `[a2a]` extra) |
-    | Tracing | OpenTelemetry GenAI semantic conventions |
-    | Telemetry from the framework itself | none |
-    | License | MIT |
-    | Python | 3.12+ |
 
 ---
 
