@@ -334,10 +334,13 @@
 
 /* Home page only. `hide: navigation, toc` empties both sidebars but Material
    still lays out their columns, leaving the content pinned beside dead space.
-   `:has()` targets only a page where both are actually collapsed, so reference
-   pages keep their normal three-column layout. */
+   :has() targets only a page where both are collapsed, so reference pages keep
+   their normal three-column layout.
+
+   The inner article carries Material's own max-width, so constrain that rather
+   than .md-content, and centre it in the reclaimed width. */
 .md-main__inner:has(.md-sidebar--primary[hidden]):has(.md-sidebar--secondary[hidden])
-  > .md-content {
-  max-width: 52rem;
+  .md-content__inner {
+  max-width: 50rem;
   margin-inline: auto;
 }
