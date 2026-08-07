@@ -250,35 +250,35 @@
 }
 
 /* Landing page ------------------------------------------------------------ */
-/* Applies only to elements the home page opts into, so reference pages keep
-   the quieter treatment above. */
+/* Scoped to .md-typeset so these win over Material's own rules, and applied
+   only to elements the home page opts into. */
 
-/* The hero snippet is the page's thesis: working code with no setup. Give it
-   more presence than an ordinary fenced block. */
-.hero-code .highlight pre,
-.hero-code pre {
+/* The hero snippet is the page's thesis: working code with zero setup. Give it
+   the accent tint so it reads as the focal point, not as body content. */
+.md-typeset .hero-code pre,
+.md-typeset .hero-code > .highlight > pre {
   border: 1px solid var(--accent-border);
-  border-radius: 9px;
+  border-radius: 10px;
   background: var(--accent-soft);
 }
 
-.hero-code .highlight pre > code,
-.hero-code pre > code {
-  font-size: 0.86rem;
-  line-height: 1.75;
-  padding: 1.1rem 1.2rem;
+.md-typeset .hero-code pre > code {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  padding: 1.15rem 1.25rem;
+  background: transparent;
 }
 
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.7rem;
-  margin: 1.5rem 0 0.5rem;
+  margin: 1.4rem 0 0.25rem;
 }
 
 .md-typeset .hero-actions .md-button {
   margin: 0;
-  padding: 0.5rem 1.1rem;
+  padding: 0.5rem 1.15rem;
   font-size: 0.76rem;
   font-weight: 600;
   border-width: 1px;
@@ -288,7 +288,7 @@
 .md-typeset .hero-actions .md-button--primary {
   background-color: var(--accent-strong);
   border-color: var(--accent-strong);
-  color: var(--md-default-bg-color);
+  color: #fff;
 }
 
 .md-typeset .hero-actions .md-button--primary:hover {
@@ -296,18 +296,27 @@
   border-color: var(--accent);
 }
 
-/* The h1 is a full sentence on this page rather than a product name, so it
-   needs room to breathe without shouting. */
+/* The landing h1 is a sentence, not a product name. */
 .md-typeset h1 {
   max-width: 30ch;
   line-height: 1.14;
 }
 
-/* Collapsed detail blocks at the foot of the page carry reference material
-   that would otherwise push the pitch below the fold. */
-.md-typeset details.info > summary,
-.md-typeset details.question > summary {
-  font-weight: 600;
+/* With both sidebars hidden the content well spans the full viewport, which is
+   far past a comfortable reading measure. Cap it and centre it. */
+.md-typeset .hero-code,
+.md-typeset .hero-actions {
+  max-width: 46rem;
+}
+
+/* Tighten the rhythm above the fold so the first benefit section is reachable
+   without a long scroll. */
+.md-typeset h1 + p {
+  margin-bottom: 1.3rem;
+}
+
+.md-typeset .hero-actions + hr {
+  margin-top: 2rem;
 }
 
 /* A four-card benefit row wraps 3+1 at desktop width, orphaning the last card.
@@ -315,4 +324,20 @@
    the navigation grids elsewhere on the page. */
 .oi-grid--pairs {
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+}
+
+/* Collapsed detail blocks at the foot carry reference material that would
+   otherwise push the pitch below the fold. */
+.md-typeset details.info > summary {
+  font-weight: 600;
+}
+
+/* Home page only. `hide: navigation, toc` empties both sidebars but Material
+   still lays out their columns, leaving the content pinned beside dead space.
+   `:has()` targets only a page where both are actually collapsed, so reference
+   pages keep their normal three-column layout. */
+.md-main__inner:has(.md-sidebar--primary[hidden]):has(.md-sidebar--secondary[hidden])
+  > .md-content {
+  max-width: 52rem;
+  margin-inline: auto;
 }
