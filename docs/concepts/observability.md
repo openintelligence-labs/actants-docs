@@ -10,7 +10,7 @@ Two complementary primitives:
 ```python
 from actants import setup_logging, get_logger
 
-setup_logging(level="info", format="pretty")    # or "json" for log aggregators
+setup_logging(level="info", format="pretty")  # or "json" for log aggregators
 log = get_logger(__name__)
 log.info("agent started", model="llama3.2")
 ```

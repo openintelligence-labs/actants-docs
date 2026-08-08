@@ -7,6 +7,11 @@ The canonical changelog lives in the product repository:
 - **[GitHub releases](https://github.com/openintelligence-labs/actants/releases)**
   — tagged releases with downloadable artifacts.
 
-actants follows [semantic versioning](https://semver.org/). While the project
-is pre-1.0, minor versions may contain breaking changes; these are always
-called out in the changelog entry for the release.
+actants follows [semantic versioning](https://semver.org/). What the 1.x series
+guarantees, and what it deliberately does not, is set out in the
+[stability policy](stability.md).
+
+The copy below is mirrored from the product repository at build time, so it
+reflects the source checked out when this site was last published.
+
+--8<-- "src-checkout/CHANGELOG.md"

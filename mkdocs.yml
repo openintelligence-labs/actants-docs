@@ -155,6 +155,9 @@ nav:
       - Tools: concepts/tools.md
       - Streaming: concepts/streaming.md
       - ReAct loop: concepts/react.md
+      - Durability: concepts/durability.md
+      - StateGraph: concepts/graph.md
+      - Testing agents: concepts/testing.md
       - Embeddings: concepts/embeddings.md
       - Storage: concepts/storage.md
       - Observability: concepts/observability.md
@@ -177,8 +180,11 @@ nav:
   - API reference:
       - Overview: api/index.md
       - Agent: api/agent.md
+      - Durability: api/durability.md
+      - StateGraph: api/graph.md
       - LLM: api/llm.md
       - Tools: api/tools.md
+      - Errors: api/errors.md
       - Embeddings: api/embeddings.md
       - Storage: api/storage.md
       - Cache: api/cache.md
@@ -190,6 +196,7 @@ nav:
       - Config: api/config.md
       - Testing: api/testing.md
   - Reference:
+      - Stability policy: reference/stability.md
       - Differentiation: reference/differentiation.md
       - OTel GenAI: reference/otel.md
       - FAQ: reference/faq.md

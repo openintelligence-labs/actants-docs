@@ -41,25 +41,35 @@ async def fetch_url(url: str) -> str:
 async def main(question: str) -> None:
     tools = ToolRegistry()
     tools.register_function(
-        "web_search", "Search the web for a query", web_search,
-        input_schema={"type": "object",
-                      "properties": {"query": {"type": "string"}},
-                      "required": ["query"]},
+        "web_search",
+        "Search the web for a query",
+        web_search,
+        input_schema={
+            "type": "object",
+            "properties": {"query": {"type": "string"}},
+            "required": ["query"],
+        },
     )
     tools.register_function(
-        "fetch_url", "Fetch a URL and return its text", fetch_url,
-        input_schema={"type": "object",
-                      "properties": {"url": {"type": "string"}},
-                      "required": ["url"]},
+        "fetch_url",
+        "Fetch a URL and return its text",
+        fetch_url,
+        input_schema={
+            "type": "object",
+            "properties": {"url": {"type": "string"}},
+            "required": ["url"],
+        },
     )
 
     agent = Agent(
         llm=LLM(model="llama3.2"),
         tools=tools,
-        memory=ConversationMemory(system=(
-            "You are a research assistant. Use web_search to find sources, "
-            "fetch_url to read them, then write a short cited answer."
-        )),
+        memory=ConversationMemory(
+            system=(
+                "You are a research assistant. Use web_search to find sources, "
+                "fetch_url to read them, then write a short cited answer."
+            )
+        ),
         max_steps=10,
     )
     result = await agent.run(question)

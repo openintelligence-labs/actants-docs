@@ -14,9 +14,11 @@ pip install 'actants[mcp]'
 from actants import Agent, LLM
 from actants.mcp import MCPClient
 
-async with MCPClient({
-    "git": {"command": "uvx", "args": ["mcp-server-git", "--repository", "."]},
-}) as mcp:
+async with MCPClient(
+    {
+        "git": {"command": "uvx", "args": ["mcp-server-git", "--repository", "."]},
+    }
+) as mcp:
     agent = Agent(llm=LLM(), tools=mcp.tools())
     await agent.run("show git status")
 ```
@@ -24,12 +26,13 @@ async with MCPClient({
 ## Connect to multiple servers
 
 ```python
-async with MCPClient({
-    "git": {"command": "uvx", "args": ["mcp-server-git"]},
-    "fs":  {"command": "uvx", "args": ["mcp-server-filesystem", "/tmp"]},
-    "co":  {"url": "https://internal.co/mcp",
-            "headers": {"Authorization": "Bearer ..."}},
-}) as mcp:
+async with MCPClient(
+    {
+        "git": {"command": "uvx", "args": ["mcp-server-git"]},
+        "fs": {"command": "uvx", "args": ["mcp-server-filesystem", "/tmp"]},
+        "co": {"url": "https://internal.co/mcp", "headers": {"Authorization": "Bearer ..."}},
+    }
+) as mcp:
     agent = Agent(llm=LLM(), tools=mcp.tools())
 ```
 
@@ -41,13 +44,13 @@ actants uses **the same shape as Claude Desktop's `mcpServers` config**, so you 
 
 ```python
 {
-    "name": {                       # required: a unique key per server
-        "command": "...",           # stdio: subprocess command
-        "args": [...],              # stdio: args
-        "env": {...},               # stdio: env vars (optional)
+    "name": {  # required: a unique key per server
+        "command": "...",  # stdio: subprocess command
+        "args": [...],  # stdio: args
+        "env": {...},  # stdio: env vars (optional)
         # OR
-        "url": "https://...",       # HTTP: server URL
-        "headers": {...},           # HTTP: headers (optional)
+        "url": "https://...",  # HTTP: server URL
+        "headers": {...},  # HTTP: headers (optional)
     }
 }
 ```
@@ -56,6 +59,6 @@ actants uses **the same shape as Claude Desktop's `mcpServers` config**, so you 
 
 ```python
 async with MCPClient({"git": {...}}) as mcp:
-    git = mcp.toolset("git")           # access one server's tools
-    await git.session.list_tools()     # raw MCP session
+    git = mcp.toolset("git")  # access one server's tools
+    await git.session.list_tools()  # raw MCP session
 ```

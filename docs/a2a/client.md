@@ -12,6 +12,7 @@ pip install 'actants[a2a]'
 
 ```python
 from actants.a2a import RemoteAgent
+
 remote = RemoteAgent("https://research-agent.example.com")
 agent = Agent(llm=LLM(), tools=[remote])
 ```

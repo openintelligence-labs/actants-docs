@@ -29,7 +29,7 @@ The original ReAct paper (Yao et al., 2022) instructed models to emit `Thought:`
 ## What about other loop patterns?
 
 - **Plan-and-Execute, Reflexion, Tree-of-Thought** — out of scope. Apps can build these on top of `LLM.complete()` themselves.
-- **Code-as-action** (smolagents) — out of scope. Sandbox quality is a separate product.
+- **Code-as-action** — out of scope. It requires a sandboxed execution environment, which actants does not provide.
 - **Multi-agent** — covered by [A2A](../a2a/server.md). One agent calls another over the standard protocol.
 
-We ship one loop, well-labeled. Everything else is a layer you build on top.
+actants implements one loop. Other patterns can be built on top of `LLM.complete()`.

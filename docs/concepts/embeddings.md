@@ -8,9 +8,9 @@ Local-first vector embeddings, defaulting to `nomic-embed-text` via Ollama
 ```python
 from actants import Embeddings
 
-emb = Embeddings()                                 # Ollama + nomic-embed-text
+emb = Embeddings()  # Ollama + nomic-embed-text
 result = await emb.embed(["hello", "world"])
-print(result.dimensions, len(result.vectors))     # 768 2
+print(result.dimensions, len(result.vectors))  # 768 2
 ```
 
 ## One vector at a time
@@ -31,7 +31,7 @@ raises, so it composes safely inside batch loops.
 ## Switching models
 
 ```python
-emb = Embeddings(model="snowflake-arctic-embed")    # any Ollama embedding model
+emb = Embeddings(model="snowflake-arctic-embed")  # any Ollama embedding model
 ```
 
 ## Custom provider
@@ -41,14 +41,17 @@ Subclass `BaseEmbeddingProvider`:
 ```python
 from actants.embeddings import BaseEmbeddingProvider, EmbeddingResult, Embeddings
 
+
 class MyProvider(BaseEmbeddingProvider):
     name = "mine"
 
-    async def embed(self, texts, *, model: str) -> EmbeddingResult:
-        ...      # fetch / compute and return EmbeddingResult
+    async def embed(
+        self, texts, *, model: str
+    ) -> EmbeddingResult: ...  # fetch / compute and return EmbeddingResult
 
     async def health(self) -> bool:
         return True
+
 
 emb = Embeddings(provider=MyProvider())
 ```

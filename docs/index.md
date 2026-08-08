@@ -155,21 +155,30 @@ attribute access, so an unused integration costs nothing at import time.
 
 Worth knowing before you pin an install command:
 
-- The **`all` extra does not include `a2a`** — nor `gemini`, `groq`, or
-  `mistral`. `pip install 'actants[all]'` gives you OpenAI, Anthropic, cache,
-  cli, and mcp only. Add the others explicitly, as in
+- The **`all` extra does not include `a2a`** — nor any of the individual
+  provider extras (`gemini`, `groq`, `mistral`, `xai`, `deepseek`, `together`,
+  `fireworks`, `openrouter`, `cerebras`, `perplexity`).
+  `pip install 'actants[all]'` gives you OpenAI, Anthropic, cache, cli, and
+  mcp only. Add the others explicitly, as in
   `pip install 'actants[all,a2a]'`. See
   [Installation](installation.md) for the full extras table.
 - MCP and A2A each require their own extra; neither is present in a bare
   `pip install actants`.
+- **Of the 13 providers, only Ollama and the shared OpenAI-compatible request
+  path are live-verified.** The rest are covered by mock-based unit tests
+  written against provider documentation. See
+  [LLM & providers](concepts/llm.md) for the per-provider status.
 
 ## Specifications
 
 | Property | Notes |
 |---|---|
 | Default LLM provider | Ollama (no API key required) |
-| Cloud providers | OpenAI, Anthropic, Gemini, Groq, Mistral (opt-in extras) |
+| Cloud providers | OpenAI, Anthropic, Gemini, Groq, Mistral, xAI, DeepSeek, Together, Fireworks, OpenRouter, Cerebras, Perplexity (opt-in extras) |
 | Concurrency | async / await |
+| Durability | checkpoint + resume (`Agent.resume()`, at-most-once tool replay) |
+| Workflows | `StateGraph` — typed state, branching, loops, interrupts |
+| Stability | semver, [1.x compatibility policy](reference/stability.md) |
 | MCP | client + server (`actants.mcp`, requires `[mcp]` extra) |
 | A2A | client + server (`actants.a2a`, requires `[a2a]` extra) |
 | Tracing | OpenTelemetry GenAI semantic conventions |
@@ -201,6 +210,13 @@ Concept-by-concept mapping. Also [CrewAI](migration/crewai.md) and
 </div>
 
 <div class="oi-card" markdown>
+[**Durability →**](concepts/durability.md)
+
+Checkpoint a run, resume it in another process, and pause for approval before
+a tool fires. Also [StateGraph](concepts/graph.md) for branching workflows.
+</div>
+
+<div class="oi-card" markdown>
 [**API reference →**](api/index.md)
 
 Every public symbol, generated from the source.
@@ -210,5 +226,5 @@ Every public symbol, generated from the source.
 
 ---
 
-<span class="oi-badge">v0.5.2 on PyPI</span> · <span class="oi-badge">v0.5.3 in main</span> ·
+<span class="oi-badge">v1.1.0</span> · <span class="oi-badge">stable API</span> ·
 MIT licensed · [Source](https://github.com/openintelligence-labs/actants)

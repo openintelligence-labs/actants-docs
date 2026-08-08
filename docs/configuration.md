@@ -26,7 +26,7 @@ Constructor args win over env vars, env vars win over `.env`.
 |---|---|
 | OpenAI | `OPENAI_API_KEY` |
 | Anthropic | `ANTHROPIC_API_KEY` |
-| Gemini | `GEMINI_API_KEY`, falling back to `GOOGLE_API_KEY` |
+| Gemini | `GOOGLE_API_KEY` or `GEMINI_API_KEY` |
 | Groq | `GROQ_API_KEY` |
 | Mistral | `MISTRAL_API_KEY` |
 | Ollama | _none_ — local |
@@ -46,12 +46,14 @@ For your own app's settings, subclass `AppSettings`:
 ```python
 from actants.config import AppSettings
 
+
 class MySettings(AppSettings):
     model_config = AppSettings.config_for("deepdive")
     search_provider: str = "ddg"
     max_results: int = 10
 
-s = MySettings()                      # reads from .env + DEEPDIVE_* env vars
+
+s = MySettings()  # reads from .env + DEEPDIVE_* env vars
 print(s.search_provider, s.max_results)
 ```
 
@@ -65,11 +67,11 @@ For databases, caches, and config files, use the platform-aware helpers:
 ```python
 from actants.config import app_config_dir, app_data_dir, app_cache_dir
 
-cfg = app_config_dir("deepdive")     # ~/Library/Application Support/deepdive   (macOS)
-                                     # ~/.config/deepdive                       (Linux)
-                                     # %APPDATA%/deepdive                       (Windows)
-data = app_data_dir("deepdive")      # databases, models, large state
-cache = app_cache_dir("deepdive")    # regenerable artifacts
+cfg = app_config_dir("deepdive")  # ~/Library/Application Support/deepdive   (macOS)
+# ~/.config/deepdive                       (Linux)
+# %APPDATA%/deepdive                       (Windows)
+data = app_data_dir("deepdive")  # databases, models, large state
+cache = app_cache_dir("deepdive")  # regenerable artifacts
 ```
 
 Each helper creates the directory by default (`create=False` to skip).

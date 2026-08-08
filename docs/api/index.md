@@ -6,8 +6,11 @@ to a specific module.
 | Section | Module |
 |---|---|
 | [Agent](agent.md) | `actants.agents` |
+| [Durability](durability.md) | `actants.agents.checkpoint` |
+| [StateGraph](graph.md) | `actants.graph` |
 | [LLM](llm.md) | `actants.llm` |
 | [Tools](tools.md) | `actants.tools` |
+| [Errors](errors.md) | `actants.errors` |
 | [Embeddings](embeddings.md) | `actants.embeddings` |
 | [Storage](storage.md) | `actants.storage` |
 | [Cache](cache.md) | `actants.cache` |
@@ -21,9 +24,11 @@ to a specific module.
 
 ## Stability
 
-actants is pre-1.0. Public symbols listed in
-`actants.__all__` are documented; everything else is implementation detail
-and may change without notice.
+Public symbols listed in `actants.__all__` are documented; everything else is
+implementation detail and may change without notice. What the 1.x series
+promises, and what it deliberately does not, is spelled out in the
+[stability policy](../reference/stability.md).
 
-The API surface is intentionally small — about **50 public symbols** across
-the entire framework. You can audit every line in one sitting.
+The API surface is intentionally small — about **60 public symbols** across
+the entire framework, a third of which are the [error classes](errors.md) you
+catch rather than call.

@@ -54,7 +54,7 @@ The OTel GenAI spec does NOT define a cost attribute. actants emits cost under o
 actants.cost.usd          (float, USD)
 ```
 
-When the spec adds one, we'll dual-emit during a deprecation window.
+If the spec later defines a cost attribute, actants will migrate with a deprecation period.
 
 ## Stability env-var
 
@@ -64,7 +64,7 @@ The GenAI semantic conventions are still marked **Development**. actants follows
 export OTEL_SEMCONV_STABILITY_OPT_IN=gen_ai_latest_experimental
 ```
 
-When GenAI is promoted to Stable, we flip the default; users who opted in stay on the bleeding edge.
+If GenAI is promoted to Stable, the default will follow the stable conventions.
 
 ## Compatible backends
 

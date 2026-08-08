@@ -29,10 +29,12 @@ from langgraph.prebuilt import create_react_agent
 from langchain_openai import ChatOpenAI
 from langchain_core.tools import tool
 
+
 @tool
 def get_weather(city: str) -> str:
     """Get weather for a city."""
     return f"sunny in {city}"
+
 
 agent = create_react_agent(ChatOpenAI(model="gpt-4o"), [get_weather])
 result = agent.invoke({"messages": [("user", "weather in Paris?")]})
@@ -45,8 +47,10 @@ from actants import Agent, LLM, ToolRegistry
 
 tools = ToolRegistry()
 
+
 async def get_weather(city: str) -> str:
     return f"sunny in {city}"
+
 
 tools.register_function(
     "get_weather",

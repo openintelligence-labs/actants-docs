@@ -11,9 +11,11 @@ from actants import ToolRegistry
 
 tools = ToolRegistry()
 
+
 async def search(query: str) -> str:
     """Search the web."""
     return f"results for {query}"
+
 
 tools.register_function("search", "Search the web for a query", search)
 ```
@@ -30,8 +32,10 @@ from actants import ToolRegistry
 
 tools = ToolRegistry()
 
+
 async def set_status(state: str) -> str:
     return state
+
 
 tools.register_function(
     "set_status",
@@ -51,7 +55,8 @@ The `input_schema` is a JSON Schema; the model uses it to construct calls.
 
 ```python
 async def check(name: str, args: dict) -> bool:
-    return name != "delete_database"   # block dangerous tools
+    return name != "delete_database"  # block dangerous tools
+
 
 tools = ToolRegistry(permission_check=check)
 ```
@@ -60,6 +65,7 @@ tools = ToolRegistry(permission_check=check)
 
 ```python
 from actants import Agent, LLM
+
 agent = Agent(llm=LLM(), tools=tools)
 await agent.run("search for python frameworks")
 ```
