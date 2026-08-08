@@ -22,12 +22,14 @@ Pydantic AI:
 ```python
 from pydantic_ai import Agent
 
-agent = Agent('openai:gpt-4o')
+agent = Agent("openai:gpt-4o")
+
 
 @agent.tool_plain
 def get_weather(city: str) -> str:
     """Get weather for a city."""
     return f"sunny in {city}"
+
 
 result = agent.run_sync("weather in Paris?")
 print(result.output)
@@ -41,8 +43,10 @@ from actants import Agent, LLM, ToolRegistry
 
 tools = ToolRegistry()
 
+
 async def get_weather(city: str) -> str:
     return f"sunny in {city}"
+
 
 tools.register_function(
     "get_weather",

@@ -24,7 +24,7 @@ CrewAI:
 from crewai import Agent, Task, Crew
 
 researcher = Agent(role="Researcher", goal="find facts", tools=[search])
-writer     = Agent(role="Writer",     goal="write a summary", tools=[])
+writer = Agent(role="Writer", goal="write a summary", tools=[])
 t1 = Task(description="Research transformers", agent=researcher, expected_output="notes")
 t2 = Task(description="Write a 1-page summary using the notes", agent=writer)
 Crew(agents=[researcher, writer], tasks=[t1, t2]).kickoff()
@@ -51,9 +51,7 @@ tools = ToolRegistry()
 tools.register(RemoteAgent("http://localhost:9000", name="researcher"))
 
 writer = Agent(llm=LLM(), tools=tools)
-await writer.run(
-    "Use the researcher to gather facts about transformers, then write a summary."
-)
+await writer.run("Use the researcher to gather facts about transformers, then write a summary.")
 ```
 
 ## Differences worth knowing before you port

@@ -10,7 +10,12 @@ from __future__ import annotations
 import asyncio
 
 from actants import (
-    Agent, AppSettings, JsonlAppender, LLM, app_config_dir, app_data_dir,
+    Agent,
+    AppSettings,
+    JsonlAppender,
+    LLM,
+    app_config_dir,
+    app_data_dir,
 )
 from actants.cli import common_options, console, error, make_app, success
 
@@ -36,12 +41,14 @@ def ask(prompt: str) -> None:
         result = await agent.run(prompt)
         console.print(result.content)
         with JsonlAppender(log_path) as out:
-            out.write({
-                "model": result.final.model,
-                "prompt": prompt,
-                "answer": result.content,
-                "tokens": result.final.usage.total_tokens,
-            })
+            out.write(
+                {
+                    "model": result.final.model,
+                    "prompt": prompt,
+                    "answer": result.content,
+                    "tokens": result.final.usage.total_tokens,
+                }
+            )
 
     try:
         asyncio.run(run())

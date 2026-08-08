@@ -17,10 +17,14 @@ def build_agent() -> Agent:
         return n * n
 
     tools.register_function(
-        "square", "Square an integer", square,
-        input_schema={"type": "object",
-                      "properties": {"n": {"type": "integer"}},
-                      "required": ["n"]},
+        "square",
+        "Square an integer",
+        square,
+        input_schema={
+            "type": "object",
+            "properties": {"n": {"type": "integer"}},
+            "required": ["n"],
+        },
     )
     return Agent(llm=LLM(model="llama3.2"), tools=tools)
 

@@ -12,8 +12,9 @@ pip install 'actants[mcp]'
 
 ```python
 from actants.mcp import serve
-serve(agent)                                              # stdio (default)
-serve(agent, transport="streamable-http", port=8000)      # HTTP
+
+serve(agent)  # stdio (default)
+serve(agent, transport="streamable-http", port=8000)  # HTTP
 ```
 
 That's it.

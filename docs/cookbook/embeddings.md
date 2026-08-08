@@ -10,11 +10,11 @@ from actants import Embeddings, open_sqlite, app_data_dir
 
 
 def chunk(text: str, *, size: int = 800) -> list[str]:
-    return [text[i:i + size] for i in range(0, len(text), size)]
+    return [text[i : i + size] for i in range(0, len(text), size)]
 
 
 async def index(folder: Path) -> None:
-    emb = Embeddings()                                # nomic-embed-text via Ollama
+    emb = Embeddings()  # nomic-embed-text via Ollama
     db = app_data_dir("notes-search") / "index.db"
 
     with open_sqlite(db) as conn:
@@ -43,10 +43,7 @@ async def search(query: str, *, k: int = 5) -> None:
         rows = conn.execute("SELECT id, path, body, vector FROM chunks").fetchall()
 
     scored = sorted(
-        (
-            (Embeddings.cosine(q, _bytes_to_vec(row["vector"])), row)
-            for row in rows
-        ),
+        ((Embeddings.cosine(q, _bytes_to_vec(row["vector"])), row) for row in rows),
         key=lambda x: x[0],
         reverse=True,
     )
@@ -58,16 +55,19 @@ async def search(query: str, *, k: int = 5) -> None:
 
 def _vec_to_bytes(v: list[float]) -> bytes:
     import struct
+
     return struct.pack(f"{len(v)}f", *v)
 
 
 def _bytes_to_vec(b: bytes) -> list[float]:
     import struct
+
     return list(struct.unpack(f"{len(b) // 4}f", b))
 
 
 if __name__ == "__main__":
     import sys
+
     if sys.argv[1] == "index":
         asyncio.run(index(Path(sys.argv[2])))
     else:

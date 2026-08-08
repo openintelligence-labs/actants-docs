@@ -29,6 +29,13 @@ do not pay for themselves at import time.
 | `gemini` | Google Gemini provider (uses bundled httpx) | `pip install 'actants[gemini]'` |
 | `groq` | Groq provider (OpenAI-compatible) | `pip install 'actants[groq]'` |
 | `mistral` | Mistral provider (OpenAI-compatible) | `pip install 'actants[mistral]'` |
+| `xai` | xAI / Grok provider (OpenAI-compatible) | `pip install 'actants[xai]'` |
+| `deepseek` | DeepSeek provider (OpenAI-compatible) | `pip install 'actants[deepseek]'` |
+| `together` | Together AI provider (OpenAI-compatible) | `pip install 'actants[together]'` |
+| `fireworks` | Fireworks AI provider (OpenAI-compatible) | `pip install 'actants[fireworks]'` |
+| `openrouter` | OpenRouter provider (OpenAI-compatible) | `pip install 'actants[openrouter]'` |
+| `cerebras` | Cerebras provider (OpenAI-compatible) | `pip install 'actants[cerebras]'` |
+| `perplexity` | Perplexity provider (OpenAI-compatible) | `pip install 'actants[perplexity]'` |
 | `cache` | `SqliteVecCache` semantic cache (sqlite-vec) | `pip install 'actants[cache]'` |
 | `cli` | Click + Rich CLI helpers | `pip install 'actants[cli]'` |
 | `mcp` | MCP client + server (official `mcp` SDK) | `pip install 'actants[mcp]'` |
@@ -38,21 +45,25 @@ do not pay for themselves at import time.
 
 Combine extras with commas: `pip install 'actants[openai,anthropic,mcp,a2a]'`.
 
-`all` does not include `a2a`, `gemini`, `groq`, or `mistral`. The A2A stack
-pulls in a server (`starlette`, `uvicorn`), and the remaining provider extras
-resolve to dependencies already covered by `openai` or by the bundled `httpx`.
-Add `a2a` explicitly if you need it: `pip install 'actants[all,a2a]'`.
+`all` does **not** include `a2a`, nor any of the OpenAI-compatible provider
+extras (`gemini`, `groq`, `mistral`, `xai`, `deepseek`, `together`,
+`fireworks`, `openrouter`, `cerebras`, `perplexity`). The A2A stack pulls in a
+server (`starlette`, `uvicorn`), and the provider extras resolve to
+dependencies already covered by `openai` or by the bundled `httpx`. Add `a2a`
+explicitly if you need it: `pip install 'actants[all,a2a]'`.
 
 ## Verify the install
 
 ```python
 import actants
-print(actants.__version__)        # 0.5.3
+
+print(actants.__version__)
 ```
 
-Bare `import actants` should complete in **under 50 ms** on any modern
-machine — the package uses [PEP 562](https://peps.python.org/pep-0562/) lazy
-attribute loading so symbols only resolve on first access.
+actants uses [PEP 562](https://peps.python.org/pep-0562/) lazy attribute loading, so
+symbols resolve only on first access and `import actants` does not pull in provider SDKs
+you are not using. Measured cold-import times are in
+[docs/BENCHMARK.md](https://github.com/openintelligence-labs/actants/blob/main/docs/BENCHMARK.md).
 
 ## Run an agent locally
 
@@ -75,5 +86,5 @@ or switch to a cloud provider (see [Configuration](configuration.md)).
 git clone https://github.com/openintelligence-labs/actants
 cd actants
 pip install -e '.[dev,openai,anthropic,mcp,a2a,cache,cli]'
-pytest                          # 153 tests should pass
+pytest                          # the full suite should pass
 ```

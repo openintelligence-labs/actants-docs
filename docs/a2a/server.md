@@ -12,6 +12,7 @@ pip install 'actants[a2a]'
 
 ```python
 from actants.a2a import serve
+
 serve(agent, host="0.0.0.0", port=9000)
 ```
 
@@ -46,12 +47,13 @@ Each tool becomes a skill so peer agents can discover capabilities.
 A2A streams responses over SSE. actants emits the standard task lifecycle —
 `TASK_STATE_SUBMITTED` → `TASK_STATE_WORKING` → a final text artifact →
 `TASK_STATE_COMPLETED` — and the final response is delivered as a single
-`TaskArtifactUpdateEvent`. Token-level streaming over A2A is on the 0.6 roadmap.
+`TaskArtifactUpdateEvent`. Token-level streaming over A2A is not currently supported.
 
 ## Mounting in an existing ASGI app
 
 ```python
 from actants.a2a import build_app
+
 a2a_app = build_app(agent, base_url="https://you.com")
 # a2a_app is a Starlette app — mount or compose as needed
 ```

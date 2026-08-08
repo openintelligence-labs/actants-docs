@@ -6,11 +6,11 @@
 
 ```python
 from actants.agents import (
-    AgentTextDelta,            # token chunk
-    AgentToolCallStarted,      # tool dispatch beginning
-    AgentToolCallCompleted,    # tool dispatch returned (ok or not)
-    AgentStepCompleted,        # one LLM call + tool round done
-    AgentRunCompleted,         # final answer (terminal)
+    AgentTextDelta,  # token chunk
+    AgentToolCallStarted,  # tool dispatch beginning
+    AgentToolCallCompleted,  # tool dispatch returned (ok or not)
+    AgentStepCompleted,  # one LLM call + tool round done
+    AgentRunCompleted,  # final answer (terminal)
 )
 ```
 

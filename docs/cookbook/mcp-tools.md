@@ -9,9 +9,11 @@ from actants.mcp import MCPClient
 
 
 async def main():
-    async with MCPClient({
-        "git": {"command": "uvx", "args": ["mcp-server-git", "--repository", "."]},
-    }) as mcp:
+    async with MCPClient(
+        {
+            "git": {"command": "uvx", "args": ["mcp-server-git", "--repository", "."]},
+        }
+    ) as mcp:
         print(f"Loaded {len(mcp.tools())} tools from MCP servers:")
         for tool in mcp.tools()[:5]:
             print(f"  - {tool.name}")

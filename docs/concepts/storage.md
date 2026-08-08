@@ -46,6 +46,7 @@ current record (not all buffered ones).
 
 ```python
 from actants import app_data_dir
+
 db_path = app_data_dir("deepdive") / "notes.db"
 ```
 
@@ -53,6 +54,8 @@ See [Configuration → Per-user paths](../configuration.md#per-user-paths-xdg-aw
 
 ## What we don't ship
 
-- Vector DB integrations beyond SQLite — sqlite-vec scales to ~100M vectors
+- Vector DB integrations beyond SQLite — `sqlite-vec` covers local-scale search; if you
+  outgrow it, wire up your own vector store
 - ORM helpers — write SQL or use SQLAlchemy on top
-- Migration framework — alembic exists; we are not in that business
+- Migration framework — use [Alembic](https://alembic.sqlalchemy.org/) or your own
+  migration scripts

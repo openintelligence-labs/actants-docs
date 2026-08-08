@@ -23,6 +23,7 @@ wrap one call:
 
 ```python
 import asyncio
+
 asyncio.run(agent.run("..."))
 ```
 
